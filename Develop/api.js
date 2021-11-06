@@ -12,34 +12,36 @@ const writeToFile = (destination, content) =>
     err ? console.error(err) : console.info(`\nData written to ${'/db/db.json'}`)
   );
 
-router.post('/notes', (req, res) => {
-    console.log(req.body)
+router.post('/notes', (request, response) => {
+    console.log(request.body)
+    const { title, text, id } = request.body;
 const readAndAppend = (content, file) => {
         fs.readFile(file, 'utf8', (err, data) => {
           if (err) {
             console.error(err);
           }
           else {
-            const newNote = {
-               data,
-               note_id: uuid(),
-              };
+            const activeNote = {
+               title,
+               text,
+               id: uuid(),
+              };  
           
-              const response = {
+              const newresponse = {
                 status: 'success',
-                body: newNote,
+                body: activeNote,
               };
           
-              console.log(response);
-              res.json(response);
-            const parsedData = JSON.parse(data, uuid());
+              console.log(newresponse);
+              response.json(activeNote)
+            const parsedData = JSON.parse(data);
             parsedData.push(content);
             writeToFile(file, parsedData);
           }
         });
       };
+      readAndAppend(request.body, 'db/db.json') 
 
-readAndAppend(req.body, 'db/db.json') 
 //read the database fi
 //json.parse on the data
 //json push new note into the array
