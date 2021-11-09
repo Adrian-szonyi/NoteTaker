@@ -46,5 +46,9 @@
     {
         "title": "TEST",
         "text": "TEST"
+    },
+    {
+        "title": "another note",
+        "text": "another note to be added"
     }
 ]
