@@ -4,7 +4,7 @@ const fs = require("fs");
 const uuid = require("../helpers/uuid");
 
 router.get("/notes", (req, res) =>
-  res.sendFile(path.join(__dirname, "./db/db.json"))
+  res.sendFile(path.join(__dirname, "../db/db.json"))
 );
 
 const writeToFile = (destination, content) =>
@@ -41,11 +41,11 @@ router.post("/notes", (request, response) => {
       }
     });
   };
-  readAndAppend(request.body, "./db/db.json");
+  readAndAppend(request.body, './db/db.json');
 });
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
   let SelectedNote = req.params.id;
-  readFromFile("./db/db.json")
+  readFromFile('../db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
       const result = json.filter((note) => note.id === SelectedNote);
@@ -55,14 +55,14 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
   let noteSelected = req.params.id;
-  readFromFile("./db/db.json")
+  readFromFile('../db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
       const result = json.filter((note) => note.id !== noteSelected);
 
-      writeToFile("./db/db.json", result);
+      writeToFile('./db/db.json', result);
 
       res.json(`Item ${noteSelected} has been deleted`);
     });
