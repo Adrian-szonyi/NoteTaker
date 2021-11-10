@@ -1,17 +1,17 @@
 const router = require("express").Router();
 const path = require("path");
 const fs = require("fs");
-const uuid = require("./helpers/uuid");
+const uuid = require("../helpers/uuid");
 
 router.get("/notes", (req, res) =>
-  res.sendFile(path.join(__dirname, "/db/db.json"))
+  res.sendFile(path.join(__dirname, "./db/db.json"))
 );
 
 const writeToFile = (destination, content) =>
   fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
     err
       ? console.error(err)
-      : console.info(`\nData written to ${"/db/db.json"}`)
+      : console.info(`\nData written to ${"./db/db.json"}`)
   );
 
 router.post("/notes", (request, response) => {
@@ -41,7 +41,7 @@ router.post("/notes", (request, response) => {
       }
     });
   };
-  readAndAppend(request.body, "db/db.json");
+  readAndAppend(request.body, "./db/db.json");
 });
 router.get("/:id", (req, res) => {
   let SelectedNote = req.params.id;
